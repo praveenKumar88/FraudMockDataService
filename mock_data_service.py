@@ -7,6 +7,7 @@ from faker import Faker
 app = Flask(__name__)
 fake = Faker()
 
+
 # Function to generate a single mock transaction
 def generate_mock_transaction(is_fraud=False):
     transaction = {
@@ -30,13 +31,14 @@ def generate_mock_transaction(is_fraud=False):
 
     return transaction
 
+
 # Endpoint to generate mock transactions
 @app.route('/generate_transactions', methods=['GET'])
 def generate_transactions():
     # Get number of transactions and fraud percentage from the request (or use defaults)
     num_transactions = int(request.args.get('num_transactions', 100))
     fraud_percentage = float(request.args.get('fraud_percentage', 5))
-    
+
     transactions = []
     for _ in range(num_transactions):
         is_fraud = random.random() < (fraud_percentage / 100)
@@ -44,6 +46,7 @@ def generate_transactions():
         transactions.append(transaction)
 
     return jsonify(transactions)
+
 
 # Run the Flask app
 if __name__ == '__main__':
